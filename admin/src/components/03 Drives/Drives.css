@@ -1,0 +1,109 @@
+.breadcrumb {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+nav {
+    padding: 0 20px;
+    --bs-breadcrumb-divider: '>';
+}
+
+header span {
+    font-size: 1.3rem;
+}
+
+header {
+    padding: 20px;
+}
+
+.drives-header {
+    display: flex;
+    align-items: center;
+}
+
+.separator {
+    margin: 0 5px;
+}
+
+.createDrives {
+    margin: 0px 20px;
+    font-size: 1.2rem;
+}
+
+.header1,
+.top_nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.addDrive {
+    background-color: rgb(0, 10, 83);
+    padding: 10px;
+    color: white;
+    align-items: center;
+    text-align: center;
+    border-radius: 45px;
+}
+
+nav p {
+    font-size: 1.2rem;
+}
+
+
+p-dropdown {
+    padding: 10px;
+}
+
+.driveFields {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.driveFields p {
+    margin-right: 10px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+}
+
+.driveInputField {
+    margin: 20px;
+    border: 1px solid rgba(103, 103, 103, 0.534);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+
+.p-dropdown-item-label,
+.p-multiselect-item,
+.p-multiselect-header {
+    padding: 5px 10px;
+}
+
+.p-multiselect-item span {
+    font-size: 1.1rem;
+    padding-left: 5px;
+    padding-top: 1px;
+}
+
+
+.divider {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.button{
+    padding: 10px 30px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
