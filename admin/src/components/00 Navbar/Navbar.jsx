@@ -5,6 +5,8 @@ import { BiHome, BiBookAlt, BiMessage, BiSolidReport, BiStats, BiTask, BiUserPin
 import { RiSettings4Line } from "react-icons/ri";
 import { FaRegUserCircle, FaBars } from "react-icons/fa";
 import { HiOutlineDocumentReport } from "react-icons/hi";
+import { LuShoppingBag } from "react-icons/lu";
+import { CgNotes } from "react-icons/cg";
 import './Navbar.css'
 import { NavLink } from 'react-router-dom'
 
@@ -18,7 +20,7 @@ const routes = [
   {
     path: "/drives",
     name: "Drives",
-    icon: <BiTask />,
+    icon: <LuShoppingBag />,
   },
   {
     path: "/courses",
@@ -28,7 +30,7 @@ const routes = [
   {
     path: "/questionbank",
     name: "Contents",
-    icon: <BiHome />,
+    icon: <CgNotes />,
   },
   {
     path: "/reports",
@@ -105,7 +107,7 @@ export default function Navbar({ children }) {
     <>
       <div className="main_container">
         <motion.div animate={{
-          width: isOpen ? "200px" : "45px", transition: {
+          width: isOpen ? "200px" : "50px", transition: {
             duration: 0.2,
             type: "spring",
             damping: 10,

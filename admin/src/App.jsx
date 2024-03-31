@@ -16,8 +16,9 @@ import Settings from './components/09 Settings/Settings.jsx'
 import Profile from './components/10 Profile/Profile.jsx'
 import NotFound from './components/11 Not Found/NotFound.jsx'
 
+import AddDrive from './components/03 Drives/AddDrives/AddDrive.jsx'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { useNavigate } from 'react-router-dom';
 
 
 import './App.css'
@@ -32,6 +33,7 @@ function App() {
             <Route path='/' element={<Dashboard />} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
+            <Route path='/drives/*' element={<NestedDrives />} />
             <Route path='/drives' element={<Drives />} />
             <Route path='/courses' element={<Courses />} />
             <Route path='/questionbank' element={<QuestionBank />} />
@@ -46,6 +48,17 @@ function App() {
       </Router>
     </div>
   )
+}
+
+
+function NestedDrives() {
+  const navigate = useNavigate();
+  return (
+    <Routes>
+      <Route path='/' element={<Drives navigate={navigate} />} />
+      <Route path='/add' element={<AddDrive />} />
+    </Routes>
+  );
 }
 
 export default App
