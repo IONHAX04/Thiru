@@ -7,6 +7,8 @@ import { Divider } from 'primereact/divider';
 import { InputText } from 'primereact/inputtext';
 import { Editor } from 'primereact/editor';
 import { Button } from 'primereact/button';
+import axios from 'axios';
+import { baseURL } from '../../101 utils/constants';
 
 
 import '../Drives.css'
@@ -18,9 +20,12 @@ export default function AddDrive() {
   const [placementType, setPlacementType] = useState(null);
   const [instituteType, setInstitute] = useState(null);
   const [offerType, setOfferType] = useState(null);
-  const [editorValue, setEditorValue] = useState("");
-
-
+  const [editorValue, setEditorValue] = useState("");;
+  const [driveName, setDriveName] = useState("");;
+  const [companyName, setCompanyName] = useState("");;
+  const [companyURL, setCompanyURL] = useState("");;
+  const [location, setLocation] = useState("");;
+  const [updateUI, setUpdateUI] = useState(false);
 
   const driveType = [
     { name: 'Placement', code: 'Placement' },
@@ -52,8 +57,42 @@ export default function AddDrive() {
     { name: 'Off Campus', code: 'offcampus' },
     { name: 'Hiring Through Contests', code: 'contests' },
   ];
+
+
   const addDrives = () => {
     navigate(-1);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const formData = {
+      selectedType,
+      placementType,
+      instituteType,
+      offerType,
+      editorValue,
+      driveName,
+      companyName,
+      companyURL,
+      location
+    };
+    console.log("LIne 80-", formData);
+    axios.post('http://localhost:5200/api/savedrive', formData).then((res) => {
+      console.log("Response for drives", res.data);
+      setSelectedType("");
+      setPlacementType("");
+      setInstitute("");
+      setOfferType("");
+      setEditorValue("");
+      setDriveName("");
+      setCompanyName("");
+      setCompanyURL("");
+      setLocation("");
+      setUpdateUI((prevState) => !prevState);
+    }).catch((err) => {
+      console.log("Error", err);
+    })
   };
 
   return (
@@ -62,7 +101,7 @@ export default function AddDrive() {
       <header className="drives-header">
         <span className="pi pi-home"></span>
         <span className="pi pi-angle-right separator"></span>
-        <span>Drives</span>
+        <span onClick={addDrives}>Drives</span>
         <span className="pi pi-angle-right separator"></span>
         <span>Add Drives</span>
       </header>
@@ -76,7 +115,7 @@ export default function AddDrive() {
         </div>
 
         {/* DRIVE INPUT FIELDS */}
-        <form action="" className="driveInputField">
+        <form onSubmit={handleSubmit} className="driveInputField">
           <p>Drive Contents</p>
           <div className="driveContents row">
             <div className="col-lg-5 col-md-12 mb-3">
@@ -86,7 +125,8 @@ export default function AddDrive() {
                   <Dropdown
                     value={selectedType}
                     onChange={(e) => setSelectedType(e.value)}
-                    options={driveType} optionLabel="name"
+                    options={driveType}
+                    optionLabel="name"
                     placeholder="Select Drive Type"
                     className="w-full"
                     style={{ padding: '3px 7px 3px 15px', width: '14rem' }} />
@@ -136,9 +176,12 @@ export default function AddDrive() {
                 <p>Drive Name</p>
                 <div className="card flex justify-content-center">
                   <InputText
+                    value={driveName}
+                    onChange={(e) => setDriveName(e.target.value)}
                     placeholder="Enter Drive Name"
                     className="w-full"
-                    style={{ padding: '3px 7px 3px 15px', width: '14rem' }} />
+                    style={{ padding: '3px 7px 3px 15px', width: '14rem' }}
+                  />
                 </div>
               </div>
             </div>
@@ -148,9 +191,12 @@ export default function AddDrive() {
                 <p>Company Name</p>
                 <div className="card flex justify-content-center">
                   <InputText
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
                     placeholder="Enter Company Name"
                     className="w-full"
-                    style={{ padding: '3px 7px 3px 15px', width: '14rem' }} />
+                    style={{ padding: '3px 7px 3px 15px', width: '14rem' }}
+                  />
                 </div>
               </div>
             </div>
@@ -160,9 +206,12 @@ export default function AddDrive() {
                 <p>Company URL</p>
                 <div className="card flex justify-content-center">
                   <InputText
-                    placeholder="Select Institute Type"
+                    value={companyURL}
+                    onChange={(e) => setCompanyURL(e.target.value)}
+                    placeholder="Enter Company URL"
                     className="w-full"
-                    style={{ padding: '3px 7px 3px 15px', width: '14rem' }} />
+                    style={{ padding: '3px 7px 3px 15px', width: '14rem' }}
+                  />
                 </div>
               </div>
             </div>
@@ -175,9 +224,12 @@ export default function AddDrive() {
                 <p>Location</p>
                 <div className="card flex justify-content-center">
                   <InputText
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
                     placeholder="Enter Job Location"
                     className="w-full"
-                    style={{ padding: '3px 7px 3px 15px', width: '14rem' }} />
+                    style={{ padding: '3px 7px 3px 15px', width: '14rem' }}
+                  />
                 </div>
               </div>
             </div>
@@ -214,7 +266,7 @@ export default function AddDrive() {
           <div className="buttons">
             <Button label="Close" severity="danger" className='button' style={{ width: '12rem' }} />
             <Button label="Save" severity="secondary" className='button' style={{ width: '12rem' }} />
-            <Button label="Save & Next" severity="success" className='button' style={{ width: '12rem' }} />
+            <Button label="Save & Next" type="submit" severity="success" className='button' style={{ width: '12rem' }} />
           </div>
         </form>
       </div>
