@@ -1,15 +1,23 @@
 .sidebar {
     background-color: rgb(0, 5, 46);
     color: white;
+    height: 100vh;
     top: 0;
     left: 0;
-    height: 100vh;
+    bottom: 0;
+    z-index: 11;
     position: sticky !important;
-    overflow: auto;
 }
 
 .main_container {
     display: flex;
+    position: sticky !important;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    overflow: auto;
+    z-index: 10;
 }
 
 .routes {
@@ -43,9 +51,10 @@
     width: 30px;
 }
 
-.icon{
+.icon {
     font-size: 1.5rem;
 }
+
 .link:hover {
     border-right: 4px solid white;
     transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);

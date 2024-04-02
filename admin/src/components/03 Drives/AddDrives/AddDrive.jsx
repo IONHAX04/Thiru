@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 import { useNavigate } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
@@ -9,6 +9,7 @@ import { Editor } from 'primereact/editor';
 import { Button } from 'primereact/button';
 import axios from 'axios';
 import { baseURL } from '../../101 utils/constants';
+import { Toast } from 'primereact/toast';
 
 
 import '../Drives.css'
@@ -20,12 +21,14 @@ export default function AddDrive() {
   const [placementType, setPlacementType] = useState(null);
   const [instituteType, setInstitute] = useState(null);
   const [offerType, setOfferType] = useState(null);
-  const [editorValue, setEditorValue] = useState("");;
-  const [driveName, setDriveName] = useState("");;
-  const [companyName, setCompanyName] = useState("");;
-  const [companyURL, setCompanyURL] = useState("");;
-  const [location, setLocation] = useState("");;
+  const [editorValue, setEditorValue] = useState("");
+  const [driveName, setDriveName] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [companyURL, setCompanyURL] = useState("");
+  const [location, setLocation] = useState("");
   const [updateUI, setUpdateUI] = useState(false);
+
+  const toast = useRef(null);
 
   const driveType = [
     { name: 'Placement', code: 'Placement' },
@@ -59,6 +62,10 @@ export default function AddDrive() {
   ];
 
 
+  const showInfo = () => {
+    toast.current.show({ severity: 'info', summary: 'Info', detail: 'Message Content', life: 3000 });
+  }
+
   const addDrives = () => {
     navigate(-1);
   };
@@ -90,9 +97,15 @@ export default function AddDrive() {
       setCompanyURL("");
       setLocation("");
       setUpdateUI((prevState) => !prevState);
+      showToast('success', 'Drive added successfully!');
     }).catch((err) => {
       console.log("Error", err);
+      showToast('error', 'Failed to add drive. Please try again.');
     })
+  };
+
+  const showToast = (severity, detail) => {
+    toast.current.show({ severity, detail });
   };
 
   return (
@@ -117,8 +130,8 @@ export default function AddDrive() {
         {/* DRIVE INPUT FIELDS */}
         <form onSubmit={handleSubmit} className="driveInputField">
           <p>Drive Contents</p>
-          <div className="driveContents row">
-            <div className="col-lg-5 col-md-12 mb-3">
+          <div className="driveContents row card flex flex-column md:flex-row gap-3">
+            <div className="col-lg-5 col-md-12 mb-3 flex-1">
               <div className="driveFields">
                 <p>Drive Type</p>
                 <div className="card flex justify-content-center">
@@ -134,7 +147,7 @@ export default function AddDrive() {
               </div>
             </div>
 
-            <div className="col-lg-5 col-md-12 mb-3">
+            <div className="col-lg-5 col-md-12 mb-3 flex-1">
               <div className="driveFields">
                 <p>Placement Type</p>
                 <div className="card flex justify-content-center">
@@ -150,7 +163,7 @@ export default function AddDrive() {
               </div>
             </div>
 
-            <div className="col-lg-5 col-md-12 mb-3">
+            <div className="col-lg-5 col-md-12 mb-3 flex-1">
               <div className="driveFields">
                 <p>Institute</p>
                 <div className="card flex justify-content-center">
@@ -171,7 +184,7 @@ export default function AddDrive() {
 
           <p>Company Details</p>
           <div className="driveContents row">
-            <div className="col-lg-5 col-md-12 mb-3">
+            <div className="col-lg-5 col-md-12 mb-3 flex-1">
               <div className="driveFields">
                 <p>Drive Name</p>
                 <div className="card flex justify-content-center">
@@ -186,7 +199,7 @@ export default function AddDrive() {
               </div>
             </div>
 
-            <div className="col-lg-5 col-md-12 mb-3">
+            <div className="col-lg-5 col-md-12 mb-3 flex-1">
               <div className="driveFields">
                 <p>Company Name</p>
                 <div className="card flex justify-content-center">
@@ -201,7 +214,7 @@ export default function AddDrive() {
               </div>
             </div>
 
-            <div className="col-lg-5 col-md-12 mb-3">
+            <div className="col-lg-5 col-md-12 mb-3 flex-1">
               <div className="driveFields">
                 <p>Company URL</p>
                 <div className="card flex justify-content-center">
@@ -248,6 +261,20 @@ export default function AddDrive() {
                 </div>
               </div>
             </div>
+            <div className="col-lg-5 col-md-12 mb-3">
+              <div className="driveFields">
+                <p>Salary</p>
+                <div className="card flex justify-content-center">
+                  <InputText
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                    placeholder="Enter Company Name"
+                    className="w-full"
+                    style={{ padding: '3px 7px 3px 15px', width: '14rem' }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
 
@@ -270,6 +297,9 @@ export default function AddDrive() {
           </div>
         </form>
       </div>
+
+      <Toast ref={toast} className='btn' />
+      {/* <Button label="Info" severity="info" onClick={showInfo} /> */}
     </div>
   )
 }

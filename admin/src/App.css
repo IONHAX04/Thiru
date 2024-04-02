@@ -12,17 +12,30 @@ a {
 }
 
 main {
-    width: 100%;
+    width: 85vw;
+    background-color: white;
     padding: 10px;
 }
 
-.driveAdd {}
+
+.main_container{
+    background-color: white;
+}
+.checking {
+    margin: 40px;
+    padding: 10px;
+}
 
 
 
-
-
-
+body {
+    font-family: var(--font-family);
+    font-weight: normal;
+    background: var(--surface-ground);
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
 
 

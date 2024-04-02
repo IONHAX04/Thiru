@@ -149,7 +149,7 @@ export default function Navbar({ children }) {
             ))}
           </section>
         </motion.div>
-        <main>
+        <main style={{ width: isOpen ? '85vw' : '96vw' }}>
           {children}
         </main>
       </div >
